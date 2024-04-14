@@ -1,4 +1,3 @@
-import os
 from asyncio import run
 
 from aiocron import crontab
