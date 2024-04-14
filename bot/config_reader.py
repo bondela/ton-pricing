@@ -6,6 +6,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     bot_token: SecretStr
 
+    channel_id: int = -1002068600035
+
     db_name: str
     db_user: SecretStr
     db_password: SecretStr
