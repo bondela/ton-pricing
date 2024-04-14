@@ -1,4 +1,3 @@
-import os
 from typing import Any
 
 from aiogram import Bot
