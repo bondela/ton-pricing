@@ -38,7 +38,6 @@ async def setup_crontabs(bot: Bot) -> None:
 
 
 async def main() -> None:
-    # TODO: Create a custom session to bypass RetryAfter exception
     bot = Bot(token=config.bot_token.get_secret_value(),
               session=RetryAfterSession(),
               default=DefaultBotProperties(parse_mode=ParseMode.HTML, link_preview_is_disabled=True))
