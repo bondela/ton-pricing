@@ -22,6 +22,7 @@ services:
       context: ./bot
     stop_signal: SIGINT
     restart: "unless-stopped"
-    env_file: bot/.env
+    volumes:
+      - ./bot:/app
     depends_on:
       - postgres
