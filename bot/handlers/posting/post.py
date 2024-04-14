@@ -1,9 +1,8 @@
-import os
-from datetime import datetime
 from typing import Any
 
 from aiogram import Bot
 from icecream import ic
+
 from .api import get_exchange
 
 
