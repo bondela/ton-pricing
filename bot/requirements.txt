@@ -1,0 +1,7 @@
+aiogram
+pydantic-settings
+aiocron
+SQLAlchemy
+asyncpg
+requests
+icecream

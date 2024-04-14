@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ton
+      POSTGRES_PASSWORD: ton_pricing_0308!
+      POSTGRES_DB: ton_pricing
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  bot:
+    container_name: bot
+    build:
+      context: ./bot
+    stop_signal: SIGINT
+    restart: "unless-stopped"
+    env_file: bot/.env
+    depends_on:
+      - postgres
