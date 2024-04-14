@@ -8,6 +8,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from handlers.posting.post import scheduled_post
+from middlewares.LoggingMiddleware import LoggingMiddleware
 from middlewares.RetryAfterSession import RetryAfterSession
 from config_reader import config
 
@@ -26,10 +27,8 @@ async def setup_database() -> None:
 
 
 async def setup_middlewares(dp: Dispatcher) -> None:
-    # TODO: Middleware for logging (icecream)
     # TODO: Middleware for database pool
-    # dp.message.middleware.register()
-    pass
+    dp.message.middleware.register(LoggingMiddleware())
 
 
 async def setup_crontabs(bot: Bot) -> None:
