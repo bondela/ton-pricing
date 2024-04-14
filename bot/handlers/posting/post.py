@@ -15,6 +15,7 @@ async def scheduled_post(bot: Bot = None) -> Any:
     :return:
     """
 
+    ic()
     response = await get_exchange()
     if not isinstance(response, dict):
         ic(response)
