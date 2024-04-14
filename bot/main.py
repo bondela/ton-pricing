@@ -32,7 +32,6 @@ async def setup_middlewares(dp: Dispatcher) -> None:
 
 
 async def setup_crontabs(bot: Bot) -> None:
-    # TODO: Write a crontabs for scheduled price parsing and posting in channel
     crontab('* * * * *', func=scheduled_post, args=(bot,), start=True)
     pass
 
