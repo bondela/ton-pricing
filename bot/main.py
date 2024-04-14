@@ -1,4 +1,5 @@
 from asyncio import run
+from contextlib import suppress
 
 from aiocron import crontab
 from aiogram import Bot, Dispatcher
@@ -9,7 +10,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from handlers.posting.post import scheduled_post
 from middlewares.LoggingMiddleware import LoggingMiddleware
 from middlewares.RetryAfterSession import RetryAfterSession
-from config_reader import config
+from config.config_reader import config
 
 from icecream import ic
 
@@ -45,9 +46,10 @@ async def main() -> None:
     await setup_handlers(dp=dp)
     await setup_crontabs(bot=bot)
 
-    ic("💩")
+    ic()
     await dp.start_polling(bot)
 
 
 if __name__ == '__main__':
-    run(main())
+    with suppress(KeyboardInterrupt):
+        run(main())
