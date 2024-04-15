@@ -10,7 +10,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from handlers.posting.post import scheduled_post
 from middlewares.LoggingMiddleware import LoggingMiddleware
 from middlewares.RetryAfterSession import RetryAfterSession
-from config.config_reader import config
+from config_reader import config
 
 from icecream import ic
 
@@ -23,6 +23,7 @@ async def setup_handlers(dp: Dispatcher) -> None:
 
 async def setup_database() -> None:
     # await run_database()
+
     pass
 
 
@@ -42,6 +43,7 @@ async def main() -> None:
               default=DefaultBotProperties(parse_mode=ParseMode.HTML, link_preview_is_disabled=True))
 
     dp: Dispatcher = Dispatcher(storage=MemoryStorage())
+    # dp: Dispatcher = Dispatcher(storage=RedisStorage.from_url(config.redis_dsn))
 
     await setup_handlers(dp=dp)
     await setup_crontabs(bot=bot)
