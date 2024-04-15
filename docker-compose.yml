@@ -23,6 +23,6 @@ services:
     stop_signal: SIGINT
     restart: "unless-stopped"
     volumes:
-      - ./bot:/app
+      - ./bot:/bot
     depends_on:
       - postgres
