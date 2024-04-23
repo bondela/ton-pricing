@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import RedisStorage
 
 from handlers.posting.post import scheduled_post
 from middlewares.LoggingMiddleware import LoggingMiddleware
@@ -42,8 +43,8 @@ async def main() -> None:
               session=RetryAfterSession(),
               default=DefaultBotProperties(parse_mode=ParseMode.HTML, link_preview_is_disabled=True))
 
-    dp: Dispatcher = Dispatcher(storage=MemoryStorage())
-    # dp: Dispatcher = Dispatcher(storage=RedisStorage.from_url(config.redis_dsn))
+    # dp: Dispatcher = Dispatcher(storage=MemoryStorage())
+    dp: Dispatcher = Dispatcher(storage=RedisStorage.from_url(config.redis_dsn))
 
     await setup_handlers(dp=dp)
     await setup_crontabs(bot=bot)

@@ -31,6 +31,7 @@ class RetryAfterSession(AiohttpSession):
 
             except Exception as exception:
                 ic(exception)
+                ic(method)
                 if "message is not modified" in str(exception):
                     return False
 

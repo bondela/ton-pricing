@@ -1,30 +1,33 @@
+from typing import Union
+
 from icecream import ic
 from pydantic import SecretStr, PostgresDsn, RedisDsn, validator, field_validator, ValidationInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class Settings(BaseSettings):
-    bot_token: SecretStr
-    # postgres_dsn: PostgresDsn
-    # redis_dsn: RedisDsn
 
+class Settings(BaseSettings):
+    # Unique token for your bot
+    bot_token: SecretStr = None
+
+    # Connection URL to postgresql
+    postgres_dsn: PostgresDsn
+
+    # Connection URL to redis
+    redis_dsn: RedisDsn
+
+    # Channel for publishing exchange rates
     channel_id: int = -1002068600035
 
-    db_name: str
-    db_user: SecretStr
-    db_password: SecretStr
-    db_host: str
-    db_port: int
+    @field_validator('channel_id')
+    def validate_bot_token(cls, v: Union[int, str], info: ValidationInfo) -> int:
+        if not isinstance(v, int):
+            raise Exception(f"{info.field_name} must be integer")
+        if not "-" in str(v):
+            raise Exception(f"{info.field_name} must contains minus symbol")
+        return v
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
-
-
-    # @field_validator('postgres_dsn')
-    # def validate_postgres_dsn(cls, v: PostgresDsn, info: ValidationInfo) -> PostgresDsn:
-    #     if v["postgres_dsn"] and not v:
-    #         assert f"{info.field_name} is empty"
-    #     return v
-
 
 config = Settings()
 ic(config.model_dump())
