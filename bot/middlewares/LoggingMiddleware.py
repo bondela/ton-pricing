@@ -12,7 +12,8 @@ class LoggingMiddleware(BaseMiddleware):
             event: TelegramObject,
             data: Dict[str, Any],
     ) -> Any:
-        # async with self.session_pool() as session:
-        #     data["session"] = session
-        ic()
+        callback = data["handler"].callback
+        user = f"{event.from_user.username or event.from_user.full_name} | {event.from_user.id}"
+        date = str(datetime.now().replace(microsecond=0))
+        ic(callback, user, date)
         return await handler(event, data)
