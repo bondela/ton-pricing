@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Callable, Awaitable, Dict, Any
 
 from aiogram import BaseMiddleware
