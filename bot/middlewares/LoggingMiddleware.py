@@ -14,7 +14,7 @@ class LoggingMiddleware(BaseMiddleware):
             data: Dict[str, Any],
     ) -> Any:
         callback = data["handler"].callback
-        user = f"{event.from_user.username or event.from_user.full_name} | {event.from_user.id}"
+        user = f"{event.from_user.username or event.from_user.full_name} - {event.from_user.id}"
         date = str(datetime.now().replace(microsecond=0))
         ic(callback, user, date)
         return await handler(event, data)
